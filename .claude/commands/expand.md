@@ -111,7 +111,7 @@ After enriching all items, build a deduplicated competency map. Group findings i
 
 For each competency, record:
 - The competency name
-- The source item it came from (e.g. "Coursera — Deep Learning Specialisation", "GitHub — repo-name", "Reference letter — Ole Frandsen")
+- The source item it came from (e.g. "Coursera — Deep Learning Specialisation", "GitHub — repo-name", "Reference letter — Jens Jensen")
 - Whether it came from direct lookup (A), inference (B), or both
 
 Remove anything already present in `01-candidate-profile.md` or `02-behavioral-profile.md`.
