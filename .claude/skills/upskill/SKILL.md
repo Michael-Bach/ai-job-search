@@ -31,7 +31,7 @@ In targeted mode, derive a slug from the job title and company for the report fi
 ### Aggregate mode
 1. Read `job_search_tracker.csv`. Extract all rows. The columns are:
    `date, company, sector, role, role_type, channel, status, contact_person, fit_rating, notes, cv_file, cover_letter_file, source`
-2. For each row, note the `role`, `company`, and `fit_rating`. You will use `fit_rating` to weight gaps — a lower fit rating means the role exposed more gaps.
+2. For each row, note the `role`, `company`, and `fit_rating`. The `fit_rating` column is a 0–100 score where 100 = perfect fit. You will use it to weight gaps — a lower fit rating means the role exposed more gaps.
 3. Read `.claude/skills/job-application-assistant/01-candidate-profile.md` to get the candidate's current skills and experience.
 4. Check `upskill/` for the most recent aggregate report file (`report-YYYY-MM-DD.md`) — if one exists, note its date and load it for the diff in Step 8.
 
@@ -53,12 +53,12 @@ Build a **skill frequency map**: for each extracted skill, count how many jobs m
 Final score for each skill: `sum of (fit_weight × occurrence)` across all jobs.
 
 ### Targeted mode
-Extract the explicit required and preferred skills from the fetched posting. Each skill gets equal weight (no fit weighting needed since there is only one job).
+Extract the explicit required and preferred skills from the fetched posting. Each skill gets equal weight (no fit weighting needed since there is only one job). List required skills before preferred skills, then sort alphabetically within each group.
 
 ### Diff against profile
 Remove any skill from the list that is already present in the candidate profile (`01-candidate-profile.md`). Be generous — if the profile mentions a skill in any form (e.g. "Python" covers "Python scripting"), remove it.
 
-What remains is the **hard skill gap list**, ranked by score descending.
+What remains is the **hard skill gap list**. In aggregate mode, rank by score descending. In targeted mode, list required skill gaps before preferred skill gaps, then sort alphabetically within each group.
 
 ## Step 4: Pass 2 — LLM Synthesis
 
@@ -72,6 +72,8 @@ Now reason holistically about gaps that the hard skill diff would miss. Consider
 Tag each synthesised gap as one of: `[domain]`, `[soft]`, `[tooling]`, or `[credential]`.
 
 Do not duplicate gaps already captured in Pass 1. Only add what was missed.
+
+In targeted mode, treat all synthesised gaps as arising from a single posting. Credential gaps can still be flagged if the single posting lists them as preferred or required.
 
 ## Step 5: Build Gap Heatmap
 
@@ -93,6 +95,8 @@ Format:
 | Low | ... | ... | ... |
 
 Print this table to the terminal as an intermediate output before continuing to the learning plan.
+
+In targeted mode, assign priority based on the job's own language: required skills → Critical or High, preferred skills → Medium, inferred gaps from LLM synthesis → Medium or Low.
 
 ## Step 6: Build Learning Plan
 
