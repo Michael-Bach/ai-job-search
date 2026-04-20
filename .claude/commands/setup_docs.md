@@ -188,7 +188,7 @@ Content that touches something already in a skill file but disagrees with it. Ex
 **For `02-behavioral-profile.md` (behavioral inference):**
 - Source: LinkedIn About section, recommendation letters
 - Extract: recurring themes, adjectives used to describe you, phrases about how you work
-- Map these to sections that do NOT contain FOKUS scores — do not modify or supplement the FOKUS competency table. Only add to sections like "Strongest Behavioral Traits", "How [Candidate] Works Best", or "Management Style Preferences" if the inference is genuinely new signal.
+- Only add to sections like "Strongest Behavioral Traits", "How [Candidate] Works Best", or "Management Style Preferences". Do not overwrite or supplement any existing scored assessments or competency tables already in the file — treat those as authoritative.
 - Always label inferred additions clearly: *[Inferred from LinkedIn About / Reference letter — review before relying on this]*
 
 **For `03-writing-style.md` (style inference from cover letters):**
