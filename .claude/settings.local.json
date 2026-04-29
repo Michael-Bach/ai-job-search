@@ -6,10 +6,6 @@
       "Bash(python:*)",
       "Bash(curl:*)",
       "Bash(bun:*)",
-      "Bash(git add *)",
-      "Bash(git commit -m ' *)",
-      "WebFetch(domain:www.linkedin.com)",
-      "WebSearch"
     ]
   }
 }
